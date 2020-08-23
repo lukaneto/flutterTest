@@ -1,86 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
-void main() => runApp(MyApp());
+void main()=>runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  Widget build(BuildContext context) {
+class MyApp extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
     return MaterialApp(
-      title: 'Incrementa flutter',
-      home: HomePage(),
+      title: 'MeuApp Flutter',
+      home: MyHomePage(),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  _HomePageState createState() =>
-      _HomePageState(); //método cresteState do tipo _HomePageState que inicia o método construtor _HomePageState().
+class MyHomePage extends StatefulWidget{
+    _HomePage createState()=> _HomePage();
 }
 
-class _HomePageState extends State<HomePage> {
-  int _counter = 0;
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
+class _HomePage extends State<MyHomePage>{
   @override
-  Widget build(BuildContext context) {
+  Widget build (BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text('Nosso App'),
-        backgroundColor: Colors.brown,
+        title: Text('Meus Amigoss'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Vezes que o botão foi apertado',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        child: Icon(Icons.add),
-        backgroundColor: Colors.red,
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.brown,
-        child: Container(
-          height: 100,
-          child: Padding(
-            padding: EdgeInsets.all(20),
-            child: Row(
-              children: <Widget>[
-                IconButton(
-                    icon: Icon(Icons.add_box, color: Colors.white),
-                    onPressed: () {
-                      alert('Adicionei qualquer coisa');
-                    }),
-                IconButton(
-                    icon: Icon(
-                      Icons.add_a_photo,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      alert('Adicionei uma foto');
-                    })
-              ],
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children:[
+              ItemCounter('Corinthians'),
+            ],
           ),
         ),
-      ),
     );
   }
 }
 
-void alert(String message) {
-  print(message);
+class ItemCounter extends StatefulWidget{
+  final String name;
+  ItemCounter(this.name);
+  @override
+  _ItemCounterState createState()=> _ItemCounterState(); 
+}
+
+class _ItemCounterState extends State<ItemCounter>{
+  int count = 0;
+  @override
+  Widget build(BuildContext context){
+    return GestureDetector(
+      onTap:(){
+        setState((){
+          count++;
+        });
+      },
+      child: Text('${widget.name}:$count',style: TextStyle(fontSize: 30),)
+    );
+  }
 }
